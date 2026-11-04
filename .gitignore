@@ -1,0 +1,28 @@
+# Entornos virtuales
+venv/
+env/
+.env
+
+# Archivos cacheados de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos de datos y modelos pesados ( Se manejará DVC)
+*.csv
+*.xlsx
+*.npy
+*.pkl
+*.joblib
+artifacts/
+
+# Logs
+logs/
+*.log
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# DagsHub / MLflow locales
+mlruns/
+.dvc/config.local
