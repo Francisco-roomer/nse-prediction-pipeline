@@ -120,3 +120,5 @@ if __name__ == "__main__":
     
     print("\nEjecución de entrenamiento con MLflow exitosa.")
     print(f"Métrica F1-Score (Ponderado): {f1_score_val:.4f}\n")
+    print("--- REPORTE DE CLASIFICACIÓN DETALLADO ---")
+    print(reporte)

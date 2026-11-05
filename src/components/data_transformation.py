@@ -25,13 +25,11 @@ class DataTransformation:
         Esta función crea las tuberías (Pipelines) de preprocesamiento para datos numéricos y categóricos.
         """
         try:
-            # 1. Definimos las columnas numéricas que encontramos en el notebook original
             numerical_columns = [
                 'REGISTRO', 'DC5_DC', 'DC8_DC', 'DC8_DC_18', 
                 'DC8_DC_M18', 'DC8_DC_T', 'SUMA'
             ]
             
-            # 2. Definimos las columnas categóricas (las otras 29)
             categorical_columns = [
                 'ENTREVISTADOR', 'DC7_DC_1_1', 'DC7_DC_1_2', 'DC7_DC_1_3', 'DC7_DC_1_4', 
                 'DC7_DC_1_5', 'DC7_DC_1_6', 'DC7_DC_1_7', 'DC7_DC_1_8', 'DC3_DC_1', 
@@ -41,7 +39,6 @@ class DataTransformation:
                 'NOMBRE', 'CIUDAD_RESIDENCIA'
             ]
 
-            # 3. Pipeline para números: Rellenar nulos con la Mediana y luego Escalar (StandardScaler)
             num_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="median")),
@@ -49,7 +46,6 @@ class DataTransformation:
                 ]
             )
 
-            # 4. Pipeline para texto: Rellenar nulos con la Moda y aplicar One-Hot Encoding
             cat_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
@@ -58,7 +54,6 @@ class DataTransformation:
                 ]
             )
 
-            # 5. Juntamos ambas tuberías en un ColumnTransformer
             preprocessor = ColumnTransformer(
                 [
                     ("num_pipeline", num_pipeline, numerical_columns),
@@ -72,9 +67,6 @@ class DataTransformation:
             raise CustomException(e, sys)
 
     def initiate_data_transformation(self, train_path, test_path):
-        """
-        Esta función lee los CSV crudos de artifacts, aplica las tuberías y guarda la data procesada.
-        """
         try:
             logging.info("--- Iniciando el componente de Transformación de Datos ---")
             
@@ -83,22 +75,28 @@ class DataTransformation:
             test_df = pd.read_csv(test_path)
 
             logging.info("Se han leído los datasets de entrenamiento y prueba.")
-            logging.info("Obteniendo el objeto preprocesador...")
 
+            # LIMPIEZA DE COMAS DECIMALES: Reemplazar ',' por '.' y convertir a float en columnas numéricas
+            numerical_columns = ['REGISTRO', 'DC5_DC', 'DC8_DC', 'DC8_DC_18', 'DC8_DC_M18', 'DC8_DC_T', 'SUMA']
+            for df_subset in [train_df, test_df]:
+                for col in numerical_columns:
+                    if col in df_subset.columns:
+                        if df_subset[col].dtype == 'object':
+                            df_subset[col] = df_subset[col].astype(str).str.replace(',', '.', regex=False)
+                        df_subset[col] = pd.to_numeric(df_subset[col], errors='coerce')
+
+            logging.info("Obteniendo el objeto preprocesador...")
             preprocessing_obj = self.get_data_transformer_object()
 
-            # La variable objetivo (Target) es el Nivel Socioeconómico
             target_column_name = "NSE"
 
-            # Separamos en X (características) e Y (objetivo) para Train
             input_feature_train_df = train_df.drop(columns=[target_column_name])
             target_feature_train_df = train_df[target_column_name]
 
-            # Separamos en X e Y para Test
             input_feature_test_df = test_df.drop(columns=[target_column_name])
             target_feature_test_df = test_df[target_column_name]
 
-            # CONVERTIR CATEGÓRICAS A TEXTO (El mismo truco que usaste en el notebook para evitar errores)
+            # Convertir categóricas a texto plano
             categorical_columns = preprocessing_obj.transformers[1][2]
             for col in categorical_columns:
                 input_feature_train_df[col] = input_feature_train_df[col].astype(str)
@@ -106,12 +104,9 @@ class DataTransformation:
 
             logging.info("Aplicando el objeto preprocesador en los datos de entrenamiento y prueba...")
 
-            # Aplicamos fit_transform a Train y solo transform a Test
             input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr = preprocessing_obj.transform(input_feature_test_df)
 
-            # Unimos las X ya transformadas con sus Y correspondientes
-            # Usamos np.c_ para concatenar arrays de numpy horizontalmente
             train_arr = np.c_[
                 input_feature_train_arr.toarray() if hasattr(input_feature_train_arr, "toarray") else input_feature_train_arr, 
                 np.array(target_feature_train_df)
@@ -122,8 +117,6 @@ class DataTransformation:
             ]
 
             logging.info("Guardando el objeto preprocesador en la carpeta artifacts...")
-            
-            # Guardamos la receta (el preprocesador) en un archivo .pkl para usarlo después en producción
             os.makedirs(os.path.dirname(self.data_transformation_config.preprocessor_obj_file_path), exist_ok=True)
             joblib.dump(preprocessing_obj, self.data_transformation_config.preprocessor_obj_file_path)
 
@@ -137,15 +130,12 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e, sys)
 
-# Código para probar que el pipeline corre bien solo
 if __name__ == "__main__":
     from src.components.data_ingestion import DataIngestion
     
-    # 1. Hacemos Ingesta
     ingestion = DataIngestion()
     train_data_path, test_data_path = ingestion.initiate_data_ingestion()
     
-    # 2. Hacemos Transformación
     transform = DataTransformation()
     train_arr, test_arr, preprocessor_path = transform.initiate_data_transformation(train_data_path, test_data_path)
     

@@ -1,0 +1,152 @@
+
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Reporte de Auditoría de Data Drift</title>
+                <script src="https://cdn.tailwindcss.com"></script>
+            </head>
+            <body class="bg-[#0c0a09] text-[#f5f5f4] p-10 font-sans">
+                <div class="max-w-4xl mx-auto space-y-6">
+                    <div class="bg-[#18181b] border border-[#27272a] rounded-xl p-6 flex justify-between items-center">
+                        <div>
+                            <h1 class="text-lg font-bold text-white">NSE Studio • Auditoría de Deriva de Datos</h1>
+                            <p class="text-xs text-zinc-400 mt-1">Comparativa estadística entre dataset de entrenamiento y lote actual.</p>
+                        </div>
+                        <div class="h-10 w-10 rounded-lg bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-xs">
+                            KS
+                        </div>
+                    </div>
+
+                    <div class="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden shadow-xl">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-zinc-900 text-zinc-400 text-xs uppercase tracking-wider border-b border-zinc-800">
+                                <tr>
+                                    <th class="px-6 py-3 font-medium">Variable Demográfica</th>
+                                    <th class="px-6 py-3 font-medium">P-Value (KS Test)</th>
+                                    <th class="px-6 py-3 font-medium">Estado de Deriva</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-800/50 text-xs font-mono">
+            
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC8_DC_T</td>
+                                    <td class="px-6 py-3 text-zinc-400">0.9999</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC8_DC_18</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_2</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC8_DC</td>
+                                    <td class="px-6 py-3 text-zinc-400">0.9999</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">REGISTRO</td>
+                                    <td class="px-6 py-3 text-zinc-400">0.8436</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_8</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">CIUDAD_RESIDENCIA</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_6</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">NOMBRE</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_4</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_7</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_11</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC5_DC</td>
+                                    <td class="px-6 py-3 text-zinc-400">0.9998</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_3</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_9</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_1</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_10</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC8_DC_M18</td>
+                                    <td class="px-6 py-3 text-zinc-400">0.6476</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                                <tr class="hover:bg-zinc-800/30 transition-colors">
+                                    <td class="px-6 py-3 text-zinc-300">DC3_DC_5</td>
+                                    <td class="px-6 py-3 text-zinc-400">1.0</td>
+                                    <td class="px-6 py-3"><span class="px-2.5 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 rounded-md font-bold">Estable</span></td>
+                                </tr>
+                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </body>
+            </html>
+            
