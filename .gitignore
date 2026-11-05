@@ -9,12 +9,12 @@ __pycache__/
 *.pyo
 
 # Archivos de datos y modelos pesados ( Se manejará DVC)
-*.csv
-*.xlsx
-*.npy
-*.pkl
-*.joblib
-artifacts/
+#*.csv
+#*.xlsx
+#*.npy
+#*.pkl
+#*.joblib
+#artifacts/
 
 # Logs
 logs/

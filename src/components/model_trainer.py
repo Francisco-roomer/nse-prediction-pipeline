@@ -27,6 +27,11 @@ class ModelTrainer:
         try:
             logging.info("--- Iniciando el componente de Entrenamiento del Modelo ---")
             
+            # Asegurar las variables de entorno de autenticación para MLflow en DagsHub
+            os.environ["MLFLOW_TRACKING_URI"] = "https://dagshub.com/francisco-roomer/nse-prediction-pipeline.mlflow"
+            os.environ["MLFLOW_TRACKING_USERNAME"] = "francisco-roomer"
+            os.environ["MLFLOW_TRACKING_PASSWORD"] = "126a71c138b0975a721570bee139a35e243d594c"
+            
             # Separar X e Y
             X_train, y_train = train_array[:, :-1], train_array[:, -1]
             X_test, y_test = test_array[:, :-1], test_array[:, -1]
@@ -54,11 +59,12 @@ class ModelTrainer:
                 'eval_metric': 'mlogloss'
             }
             
-            # Iniciamos el registro de MLflow
+            # Iniciamos el registro de MLflow conectado a DagsHub
+            mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
             mlflow.set_experiment("nse_prediction_experiment")
             
             with mlflow.start_run():
-                logging.info("Registrando parámetros y métricas en MLflow")
+                logging.info("Registrando parámetros y métricas en MLflow (DagsHub)")
                 
                 # Registrar hiperparámetros
                 mlflow.log_params(best_params)
@@ -86,7 +92,15 @@ class ModelTrainer:
 
             logging.info("Entrenamiento y guardado completados con éxito.")
             
-            return f1, classification_report(y_test_encoded, y_pred, target_names=le.classes_)
+            # Generar el reporte de clasificación de forma segura manejando clases vacías
+            report = classification_report(
+                y_test_encoded, 
+                y_pred, 
+                target_names=[str(c) for c in le.classes_], 
+                zero_division=0
+            )
+            
+            return f1, report
             
         except Exception as e:
             raise CustomException(e, sys)
