@@ -10,7 +10,7 @@ from src.logger.logger import logging
 app = FastAPI(
     title="NSE Enterprise Analytics Studio",
     description="Plataforma de Inferencia Batch, Auditoría y Monitoreo de Data Drift",
-    version="6.12.0"
+    version="6.13.0"
 )
 
 @app.get("/", response_class=HTMLResponse)
@@ -186,9 +186,9 @@ def home():
                         </div>
                         <div class="bento-card p-4 flex flex-col justify-between">
                             <p class="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Precisión del Motor</p>
-                            <h3 class="text-xl font-bold font-mono text-emerald-400 mt-2">85.0% F1</h3>
+                            <h3 class="text-xl font-bold font-mono text-emerald-400 mt-2">93.1% F1</h3>
                             <div class="mt-4 text-[10px] text-zinc-400 flex items-center gap-1">
-                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> XGBoost Validado
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> XGBoost (MLflow Run)
                             </div>
                         </div>
                     </div>
