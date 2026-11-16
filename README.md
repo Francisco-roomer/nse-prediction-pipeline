@@ -1,14 +1,14 @@
-# nse-prediction-pipeline
+## nse-prediction-pipeline
 
-# NSE Enterprise Analytics Studio - MLOps Pipeline
+## NSE Enterprise Analytics Studio - MLOps Pipeline
 
-## Resumen Ejecutivo
+### Resumen Ejecutivo
 
 Este proyecto implementa un pipeline MLOps completo y automatizado para la clasificación de Nivel Socioeconómico (NSE) utilizando datos reales. Tradicionalmente, este proceso analítico requería hasta cuatro días de trabajo operativo y manual por parte de un analista humano. Mediante la automatización y un modelo predictivo basado en XGBoost, el sistema reduce este ciclo a solo segundos mediante inferencia por lotes (batch), logrando un rendimiento de 93.1% en F1-score ponderado. La solución integra trazabilidad de experimentos, versionado de datos y monitoreo continuo de desvíos estadísticos.
 
 ---
 
-## Arquitectura y Componentes del Sistema
+### Arquitectura y Componentes del Sistema
 
 El sistema está diseñado bajo una arquitectura modular y desacoplada que cubre todo el ciclo de vida del aprendizaje automático:
 
@@ -33,7 +33,7 @@ El sistema está diseñado bajo una arquitectura modular y desacoplada que cubre
 
 ---
 
-## Estructura del Directorio
+### Estructura del Directorio
 
 ```text
 nse-prediction-pipeline/
